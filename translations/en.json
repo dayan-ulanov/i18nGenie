@@ -1,0 +1,21 @@
+{
+  "greeting": "Hello",
+  "farewell": "Goodbye",
+  "thankYou": "Thank you",
+  "please": "Please",
+  "yes": "Yes",
+  "no": "No",
+  "welcome": "Welcome",
+  "goodMorning": "Good morning",
+  "goodNight": "Good night",
+  "howAreYou": "How are you?",
+  "sorry": "I'm sorry",
+  "seeYouLater": "See you later",
+  "whatIsYourName": "What is your name?",
+  "myNameIs": "My name is {name}.",
+  "niceToMeetYou": "Nice to meet you!",
+  "whereAreYouFrom": "Where are you from?",
+  "iLoveYou": "I love you",
+  "help": "Help",
+  "goodbye": "Goodbye"
+}
