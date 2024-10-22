@@ -1,6 +1,7 @@
 import { Command } from "commander";
 import { removeTranslation } from "./commands/remove";
 import { addTranslation } from './commands/add'
+import { listTranslations } from './commands/list'
 
 const program = new Command();
 
@@ -21,9 +22,14 @@ program
 	.command("remove")
 	.description("Remove a translation by key")
 	.argument("<key>", "Translation key")
-
 	.option("-l, --locale <locale>", 'Locale to remove translation from', 'en')
 	.action(removeTranslation);
+
+program
+	.command("list")
+	.description("List all translations for a locale")
+	.option("-l, --locale <locale>", 'Locale to list translations', 'en')
+	.action(listTranslations);
 
 
 program.parse(process.argv);
