@@ -13,8 +13,6 @@ export function addTranslation(
 		`${options.locale}.json`
 	);
 
-	console.log(localeFile);
-
 	const translations = JSON.parse(fs.readFileSync(localeFile, "utf-8"));
 
 	translations[key] = value;
