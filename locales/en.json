@@ -1,0 +1,8 @@
+{
+  "greeting": "Hello",
+  "farewell": "Goodbye",
+  "thankYou": "Thank you",
+  "welcomeMessage": "Welcome to the i18n Genie CLI",
+  "commandNotFound": "Command not found",
+  "errorLoadingTranslation": "Error loading translation file"
+}
