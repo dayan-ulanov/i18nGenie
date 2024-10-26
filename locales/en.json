@@ -1,5 +1,5 @@
 {
-  "greeting": "Hello",
+  "greeting": "Hello!",
   "farewell": "Goodbye",
   "thankYou": "Thank you",
   "welcomeMessage": "Welcome to the i18n Genie CLI",

@@ -42,13 +42,15 @@ export class TranslationFileSearcher {
 		);
 	}
 
-	async search(startDir: string): Promise<void> {
+	async search(startDir: string): Promise<string[]> {
 		try {
 			const results = await this.fileFinder.findTranslationFiles(startDir);
 			const iso3166Codes = this.fileFinder.filterIsoCodes(results);
 			console.log('Найденные файлы с кодами ISO 3166-1:', iso3166Codes);
+			return iso3166Codes;
 		} catch (error) {
 			console.error('Ошибка при поиске файлов:', error);
+			return [];
 		}
 	}
 }
