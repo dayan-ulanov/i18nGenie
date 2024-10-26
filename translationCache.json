@@ -1,0 +1,24 @@
+{
+  "/Users/dayanulanov/Documents/MyProjects/i18nGenie/locales/ru.json": {
+    "data": {
+      "greeting": "Привет",
+      "farewell": "До свидания",
+      "thankYou": "Спасибо",
+      "welcomeMessage": "Добро пожаловать в i18n Genie CLI",
+      "commandNotFound": "Команда не найдена",
+      "errorLoadingTranslation": "Ошибка при загрузке файла перевода"
+    },
+    "hash": "aca89d1e3c7e402cc707f2ed41c5b90067eea8c2bea9142bee2556e6413bedd7"
+  },
+  "/Users/dayanulanov/Documents/MyProjects/i18nGenie/locales/en.json": {
+    "data": {
+      "greeting": "Hello",
+      "farewell": "Goodbye",
+      "thankYou": "Thank you",
+      "welcomeMessage": "Welcome to the i18n Genie CLI",
+      "commandNotFound": "Command not found",
+      "errorLoadingTranslation": "Error loading translation file"
+    },
+    "hash": "6d52421bb2ce9a55f64cf23ab61d490fb1b283f5a5c05767f31e7d8bfc28836c"
+  }
+}

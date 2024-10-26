@@ -1,14 +1,18 @@
 import path from 'path';
 import { TranslationFileSearcher } from './module/TranslationFileSearcher';
-import { HashTranslation } from './module/HashTranslation'
+import { TranslationHash } from './module/TranslationHash'
+import { TranslationStore } from './module/TranslationStore'
 
 class Main {
 	private searcher: TranslationFileSearcher;
-	private hashTranslation: HashTranslation;
+	private hashTranslation: TranslationHash;
+	private store: TranslationStore;
 
 	constructor() {
 		this.searcher = new TranslationFileSearcher('**/*.json');
-		this.hashTranslation = new HashTranslation();
+		const cacheFilePath = path.join(process.cwd(), 'translationCache.json');
+		this.store = new TranslationStore(cacheFilePath);
+		this.hashTranslation = new TranslationHash(this.store);
 	}
 
 	async run(): Promise<void> {
@@ -17,6 +21,8 @@ class Main {
 		await this.searcher.search(startDir);
 		const foundFiles = await this.searcher.search(startDir);
 		await this.hashTranslation.processTranslations(foundFiles);
+
+		console.log(this.store.getAllTranslations())
 	}
 }
 
