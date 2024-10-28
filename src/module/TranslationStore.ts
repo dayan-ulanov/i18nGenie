@@ -6,27 +6,18 @@ interface TranslationData {
 }
 
 export class TranslationStore {
-	private store: Map<string, TranslationData> = new Map();
-	private cacheFilePath: string;
-
-	constructor(cacheFilePath: string) {
-		this.cacheFilePath = cacheFilePath;
+	private store = new Map<string, TranslationData>();
+	constructor(private cacheFilePath: string) {
 		this.loadCache();
 	}
 
 	private async loadCache(): Promise<void> {
 		if (await fs.pathExists(this.cacheFilePath)) {
-			const data = await fs.readFile(this.cacheFilePath, 'utf-8');
-			if (!data) {
-				console.warn('Кэш данных переводов пуст. Создание нового кэша.');
-				return;
-			}
 			try {
-				const jsonData = JSON.parse(data);
+				const jsonData = JSON.parse(await fs.readFile(this.cacheFilePath, 'utf-8'));
 				for (const [filePath, translationData] of Object.entries(jsonData)) {
 					this.store.set(filePath, translationData as TranslationData);
 				}
-				console.log('Кэш данных переводов загружен.');
 			} catch (error) {
 				console.error(`Ошибка при загрузке кэша: ${error}`);
 				await this.resetCache();
@@ -41,51 +32,31 @@ export class TranslationStore {
 	}
 
 	async saveCache(): Promise<void> {
-		const data = Object.fromEntries(this.store.entries());
-
-		if (typeof data !== 'object' || Array.isArray(data)) {
-			console.error('Неверная структура данных для кэша.');
-			return;
-		}
-
-		await fs.writeJson(this.cacheFilePath, data, { spaces: 2 });
+		await fs.writeJson(this.cacheFilePath, Object.fromEntries(this.store.entries()), { spaces: 2 });
 		console.log('Кэш данных переводов сохранен.');
 	}
 
-	deleteHash(filePath: string): void {
-		if (this.store.has(filePath)) {
-			this.store.delete(filePath);
-			console.log(`Перевод для файла ${filePath} удален из хранилища.`);
-		} else {
-			console.log(`Файл ${filePath} не найден в хранилище.`);
-		}
+	saveTranslationToFile(filePath: string, translations: Record<string, any>): Promise<void> {
+		return fs.writeJson(filePath, translations, { spaces: 2 });
 	}
 
-	addTranslation(filePath: string, data: Record<string, any>, hash: string) {
-		this.store.set(filePath, { data, hash });
-	}
-
-	getTranslation(filePath: string): Record<string, any> | null {
-		return this.store.get(filePath)?.data || null;
+	removeUnusedFiles(files: string[]): void {
+		this.store.forEach((_, key) => {
+			if (!files.includes(key)) this.store.delete(key);
+		});
 	}
 
 	hasTranslation(filePath: string): boolean {
 		return this.store.has(filePath);
 	}
 
-	updateTranslation(
-		filePath: string,
-		data: Record<string, any>,
-		hash: string
-	): void {
-		const existing = this.store.get(filePath);
+	updateTranslation(filePath: string, data: Record<string, any>, hash: string): void {
+		this.store.set(filePath, { data, hash });
+		console.log(`Обновлены данные для файла ${filePath}`);
+	}
 
-		if (!existing || existing.hash !== hash) {
-			this.store.set(filePath, { data, hash });
-			console.log(`Данные для файла ${filePath} обновлены.`);
-		} else {
-			console.log(`Нет изменений для файла ${filePath}.`);
-		}
+	getTranslation(filePath: string): TranslationData | null {
+		return this.store.get(filePath) || null;
 	}
 
 	getAllTranslations(): Map<string, TranslationData> {
