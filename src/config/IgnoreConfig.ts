@@ -11,4 +11,9 @@ export class IgnoreConfig {
 			console.error(`Ошибка при чтении конфигурации из файла ${configPath}:`, error);
 		}
 	}
+
+	async get(configPath: string): Promise<string[]> {
+		await this.read(configPath);
+		return Array.from(this.ignoredDirs);
+	}
 }

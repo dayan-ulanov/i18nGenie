@@ -18,11 +18,15 @@ class Main {
 	async run(): Promise<void> {
 		const startDir = process.cwd();
 		await this.searcher.init(path.join(startDir, 'ignore.json'));
-		await this.searcher.search(startDir);
 		const foundFiles = await this.searcher.search(startDir);
-		await this.hashTranslation.processTranslations(foundFiles);
 
-		console.log(this.store.getAllTranslations())
+		if (foundFiles.length > 0) {
+			await this.hashTranslation.processTranslations(foundFiles);
+			await this.searcher.search(startDir);
+			console.log(this.store.getAllTranslations());
+		} else {
+			console.log('Файлы перевода не найдены.');
+		}
 	}
 }
 
