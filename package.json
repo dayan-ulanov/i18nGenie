@@ -3,7 +3,8 @@
   "module": "src/index",
   "type": "module",
   "scripts": {
-    "genie": "bun run src/index.ts"
+    "genie": "NODE_ENV=client bun run src/index.ts",
+    "genie:dev": "NODE_ENV=development bun run src/index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -15,6 +16,7 @@
   "dependencies": {
     "@types/crypto-js": "^4.2.2",
     "chokidar": "^4.0.1",
+    "commander": "^12.1.0",
     "crypto-js": "^4.2.0",
     "fast-glob": "^3.3.2",
     "fs-extra": "^11.2.0",

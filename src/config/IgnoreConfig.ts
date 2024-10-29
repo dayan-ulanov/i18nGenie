@@ -8,7 +8,7 @@ export class IgnoreConfig {
 			const config = JSON.parse(data);
 			this.ignoredDirs = new Set(config.ignoredDirs || []);
 		} catch (error) {
-			console.error(`Ошибка при чтении конфигурации из файла ${configPath}:`, error);
+			console.devError(`Ошибка при чтении конфигурации из файла ${configPath}:`, error);
 		}
 	}
 

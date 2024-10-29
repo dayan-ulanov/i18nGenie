@@ -4,14 +4,14 @@ import type { TranslationStore } from './TranslationStore';
 
 export class TranslationHash {
 	constructor(private store: TranslationStore) {
-		process.on('exit', () => this.store.saveCache().catch(console.error));
+		process.on('exit', () => this.store.saveCache().catch(console.devError));
 	}
 
 	async readTranslationFile(filePath: string): Promise<Record<string, any>> {
 		try {
 			return await fs.readJson(filePath);
 		} catch (error) {
-			console.error(`Ошибка при чтении файла ${filePath}:`, error);
+			console.devError(`Ошибка при чтении файла ${filePath}:`, error);
 			return {};
 		}
 	}
@@ -29,7 +29,7 @@ export class TranslationHash {
 				this.store.updateTranslation(filePath, translations, hash);
 				await this.store.saveTranslationToFile(filePath, translations);
 			} else {
-				console.log(`Нет изменений для файла ${filePath}.`);
+				console.dev(`Нет изменений для файла ${filePath}.`);
 			}
 		}
 

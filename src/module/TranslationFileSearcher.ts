@@ -37,7 +37,7 @@ export class TranslationFileSearcher {
 			const results = await this.fileFinder.findTranslationFiles(startDir);
 			return this.fileFinder.filterIsoCodes(results);
 		} catch (error) {
-			console.error('Ошибка при поиске файлов:', error);
+			console.devError('Ошибка при поиске файлов:', error);
 			return [];
 		}
 	}
